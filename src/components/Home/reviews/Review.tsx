@@ -6,9 +6,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './style.css';
 import { Navigation } from 'swiper/modules';
+import { useGetReviewQuery } from "../../../redux/feauters/user-reviews/reviewApi";
 
 export default function Review() {
+
     const swiperRef: any = useRef();
+    const {data} = useGetReviewQuery(undefined)
+    //console.log(data);
+    
 
     return (
         <div className='py-12'>
@@ -49,8 +54,10 @@ export default function Review() {
 
                     className="mySwiper"
                 >
-                    <SwiperSlide >
-                        <div className="max-w-[800px] py-6 bg-gray-50  p-6 text-black rounded-lg">
+                    {
+                        data?.map((d, i) => (
+                             <SwiperSlide key={i}>
+                        <div className="max-w-[800px] py-6 bg-gray-50 p-6 text-black rounded-lg">
                             <div className="flex p-5 mt-4">
                                 <div className="avatar placeholder">
                                     <div className="bg-neutral text-neutral-content rounded-full w-16">
@@ -58,64 +65,37 @@ export default function Review() {
                                     </div>
                                 </div>
                                 <div className="mx-4">
-                                    <h1 className='text-xl font-bold py-1'>Amelia Joseph</h1>
-                                    <p className='text-sm'>Chief Manager</p>
+                                    <h1 className='text-xl font-bold py-1'>{d.name}</h1>
+                                    <p className='text-sm'>{d.address}</p>
                                 </div>
                             </div>
-                            <p className='p-3 mx-20 text-sm'>My vision came alive effortlessly. Their blend of casual and professional approach made the process a breeze. Creativity flowed, and the results were beyond my expectations.</p>
+                            <p className='p-3 mx-20 text-sm'>{d.description}</p>
                         </div>
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <div className="max-w-[800px] py-6 bg-gray-50  p-6 text-black rounded-lg">
-                            <div className="flex p-5 mt-4">
-                                <div className="avatar placeholder">
-                                    <div className="bg-neutral text-neutral-content rounded-full w-16">
-                                        <span className="text-3xl">D</span>
-                                    </div>
-                                </div>
-                                <div className="mx-4">
-                                    <h1 className='text-xl font-bold py-1'>Amelia Joseph</h1>
-                                    <p className='text-sm'>Chief Manager</p>
-                                </div>
-                            </div>
-                            <p className='p-3 mx-20 text-sm'>My vision came alive effortlessly. Their blend of casual and professional approach made the process a breeze. Creativity flowed, and the results were beyond my expectations.</p>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <div className="max-w-[800px] py-6 bg-gray-50  p-6 text-black rounded-lg">
-                            <div className="flex p-5 mt-4">
-                                <div className="avatar placeholder">
-                                    <div className="bg-neutral text-neutral-content rounded-full w-16">
-                                        <span className="text-3xl">D</span>
-                                    </div>
-                                </div>
-                                <div className="mx-4">
-                                    <h1 className='text-xl font-bold py-1'>Amelia Joseph</h1>
-                                    <p className='text-sm'>Chief Manager</p>
-                                </div>
-                            </div>
-                            <p className='p-3 mx-20 text-sm'>My vision came alive effortlessly. Their blend of casual and professional approach made the process a breeze. Creativity flowed, and the results were beyond my expectations.</p>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <div className="max-w-[800px] py-6 bg-gray-50  p-6 text-black rounded-lg">
-                            <div className="flex p-5 mt-4">
-                                <div className="avatar placeholder">
-                                    <div className="bg-neutral text-neutral-content rounded-full w-16">
-                                        <span className="text-3xl">D</span>
-                                    </div>
-                                </div>
-                                <div className="mx-4">
-                                    <h1 className='text-xl font-bold py-1'>Amelia Joseph</h1>
-                                    <p className='text-sm'>Chief Manager</p>
-                                </div>
-                            </div>
-                            <p className='p-3 mx-20 text-sm'>My vision came alive effortlessly. Their blend of casual and professional approach made the process a breeze. Creativity flowed, and the results were beyond my expectations.</p>
-                        </div>
-                    </SwiperSlide>
+                    </SwiperSlide>   
+                        ))
+                    }
+                   
+
                 </Swiper>
 
             </div>
         </div>
     );
 }
+
+
+// <SwiperSlide key={i}>
+// <div className="max-w-[800px] py-6 bg-gray-50 p-6 text-black rounded-lg">
+//     <div className="flex p-5 mt-4">
+//         <div className="avatar placeholder">
+//             <div className="bg-neutral text-neutral-content rounded-full w-16">
+//                 <span className="text-3xl">D</span>
+//             </div>
+//         </div>
+//         <div className="mx-4">
+//             <h1 className='text-xl font-bold py-1'>{d.name}</h1>
+//             <p className='text-sm'>{d.address}</p>
+//         </div>
+//     </div>
+//     <p className='p-3 mx-20 text-sm'>{d.description}</p>
+// </div>

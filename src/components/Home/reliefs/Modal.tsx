@@ -2,14 +2,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
+import { selectCurrentUser } from "../../../redux/feauters/auth/authSlice";
+import { useAppSelector } from "../../../redux/hooks";
+import { useAddDonorsMutation } from "../../../redux/feauters/user-donors/donorsApi";
 
 function Modal() {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
+    const user: any = useAppSelector(selectCurrentUser)
+    const [addDonors] = useAddDonorsMutation(undefined)
 
-    const submitData = () => {
-        //console.log(data);
-        navigate('/dashboard')
+
+    const submitData = (data: any) => {
+        //console.log(data.email);
+        addDonors(data)
+        //navigate('/dashboard')
 
     }
 
@@ -50,23 +57,22 @@ function Modal() {
                                 </label>
                                 <input
                                     type="email"
-
                                     placeholder="email"
-                                    required
+                                    value={user?.email}                                  
                                     {...register('email')}
                                     className="input input-bordered w-72 md:w-[420px] h-[50px]"
                                 />
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label">
-                                    <span className="label-text font-semibold py-2">Phone</span>
+                                    <span className="label-text font-semibold py-2">Address</span>
                                 </label>
                                 <input
                                     type="text"
 
-                                    placeholder="Phone"
+                                    placeholder="Address"
                                     required
-                                    {...register('phone')}
+                                    {...register('address')}
                                     className="input input-bordered w-72 md:w-[420px] h-[50px]"
                                 />
                             </div>

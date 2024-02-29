@@ -4,6 +4,8 @@ import Modal from "./Modal"
 
 function ReliefDetails() {
   const data: any = useLoaderData()
+  //console.log(data);
+  
 
 
   return (

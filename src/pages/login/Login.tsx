@@ -23,7 +23,7 @@ function Login() {
 
       const res = await login(userInfo).unwrap()
       const user = veryfiToken(res.token)
-        console.log(user);
+        //console.log(user);
         
       dispath(setUser({
         user: user,

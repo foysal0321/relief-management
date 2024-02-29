@@ -11,6 +11,11 @@ import AllReliefs from "../components/Home/reliefs/AllReliefs";
 import ReliefDetails from "../components/Home/reliefs/ReliefDetails";
 import UpdateReliefForm from "../components/Dashboard/UpdateReliefForm";
 import ProtecedRoute from "../components/layout/ProtecedRoute";
+import Leaderboard from "../pages/donors-leaderboard/Leaderboard";
+import CreateReview from "../components/Dashboard/review/CreateReview";
+import CreateVolunteer from "../pages/volunteers/CreateVolunteer";
+import About from "../pages/about/About";
+import Community from "../pages/community/Community";
 
 
 const router = createBrowserRouter([
@@ -33,6 +38,22 @@ const router = createBrowserRouter([
                 
             },
             
+            {
+                path: '/donors-leaderboard',
+                element: <Leaderboard />
+            },
+            {
+                path: '/volunteer”',
+                element: <CreateVolunteer />
+            },
+            {
+                path: '/about',
+                element: <About />
+            },
+            {
+                path: '/community',
+                element: <Community />
+            },
             {
                 path: '/register',
                 element: <Register />
@@ -64,6 +85,10 @@ const router = createBrowserRouter([
                 element: <UpdateReliefForm />,
                 loader: ({params}) => fetch(`https://relief-server.vercel.app/api/v1/relief-goods/${params.id}`)
                 
+            },
+            {
+                path: 'create-testimonial',
+                element: <CreateReview />
             },
         ])
     }

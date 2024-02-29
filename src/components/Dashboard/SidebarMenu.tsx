@@ -15,6 +15,8 @@ function SidebarMenu() {
                         <Link className="p-3 hover:text-green-500" to='/dashboard'>Dashboard</Link><hr />
                         <Link to='/dashboard/supplies' className="p-3 hover:text-green-500">Supplies List</Link> <hr />
                         <Link to='/dashboard/create-supply' className="p-3 hover:text-green-500">Create Supply</Link> <hr />
+                        <Link to='/dashboard/create-testimonial' className="p-3 hover:text-green-500">Create Review</Link> <hr />
+                        <Link to='/dashboard/create-supply' className="p-3 hover:text-green-500">All Users</Link> <hr />
 
                     </ul>
 
