@@ -2,11 +2,12 @@
 import { useForm } from "react-hook-form"
 import { useAddReliefsMutation } from "../../redux/feauters/reliefs/reliefApi"
 import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
 
 function CreateSupply() {
 
   const [addData] = useAddReliefsMutation()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
   const imgHostUrl = `https://api.imgbb.com/1/upload?key=70669c87852630ac66a79bbcc87d5718`
   const navigate = useNavigate()
 
@@ -30,8 +31,25 @@ function CreateSupply() {
           amount,
         }
         addData(newRelief)
-        navigate('/relief-goods')
-        //console.log(newRelief);
+        .then((data: any) => {
+          if (data?.data?.acknowledged) {
+              Swal.fire({
+                  icon: "success",
+                  title: "Your work has been saved",
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              navigate('/relief-goods')
+          } else {
+              Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Something went wrong!",
+              });
+          }
+      });
+  reset()
+
       })
   }
 

@@ -2,7 +2,7 @@ import { Bath, HandHelping } from "lucide-react"
 
 function Gallery() {
     return (
-        <div>
+        <div className="py-20 lg:mt-12">
             <div className="max-w-[1200px] mx-auto">
                 <div className="flex flex-wrap justify-center gap-10 p-5">
                     <div className="diff aspect-[16/9] max-w-[500px] ">

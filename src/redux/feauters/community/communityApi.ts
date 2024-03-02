@@ -1,6 +1,7 @@
 import { baseApi } from "../../api/baseApi";
 
 const communityApi = baseApi.injectEndpoints({
+    
     endpoints: (builder) => ({
 
         addCommunity: builder.mutation({
@@ -8,14 +9,16 @@ const communityApi = baseApi.injectEndpoints({
                 url: '/community',
                 method: 'POST',
                 body: data
-            })
+            }),
+            invalidatesTags: ["community"]
         }),
 
         getCommunitys: builder.query({
             query: () => ({
                 url: '/community',
                 method: 'GET',
-            })
+            }),
+            providesTags: ["community"]
         })
 
     })

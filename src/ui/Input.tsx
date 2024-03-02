@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-function Input({ type, label, register, name }) {
+type TInput = {
+  type: string
+  label: string
+  register: any
+  name: string
+}
+
+function Input({ type, label, register, name }: TInput) {
   return (
 
     <label className="form-control w-full max-w-xs py-1">

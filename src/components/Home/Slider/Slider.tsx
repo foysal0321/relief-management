@@ -53,7 +53,7 @@ function Slider() {
           }}
 
           modules={[FreeMode, Pagination]}
-          className="mySwiper "
+          className="mySwiper"
         >
           <SwiperSlide>
             <div className="h-[350px] w-full hover:opacity-60 duration-75">

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form"
-import {  Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch } from "../../redux/hooks"
 import { setUser } from "../../redux/feauters/auth/authSlice"
 import { useLoginUserMutation } from "../../redux/feauters/auth/authApi"
 import { veryfiToken } from "../../utils/veryfiToken"
+import { toast } from "sonner"
 //import { veryfiToken } from "../../utils/veryfiToken"
 
 function Login() {
@@ -15,6 +16,7 @@ function Login() {
 
 
   const onSubmit = async (data: any) => {
+    const tostId = toast.loading('Login..')
     try {
       const userInfo = {
         email: data.email,
@@ -23,21 +25,21 @@ function Login() {
 
       const res = await login(userInfo).unwrap()
       const user = veryfiToken(res.token)
-        //console.log(user);
-        
+
       dispath(setUser({
         user: user,
         token: res.token
       }))
+      toast.success('Successfuly Login', { id: tostId, duration: 2000 })
       navigate('/dashboard')
 
     } catch (err) {
+      toast.error('Something wrong', { id: tostId, duration: 2000 })
       console.log(err);
-
     }
-
   }
-  //console.log(user);
+
+
   return (
     <div className="">
       <div className="max-w-[500px] mx-auto py-20  ">

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
-//import { toast } from "sonner"
+import { toast } from "sonner"
 import { useCreateUserMutation } from "../../redux/feauters/auth/authApi"
 
 
@@ -11,15 +11,23 @@ function Register() {
   const [creteUser] = useCreateUserMutation()
   const navigate = useNavigate()
 
-  const handle = (data: any) => {
 
-    const userInfo = {
-      name: data.name,
-      email: data.email,
-      password: data.password
+  const handle = async (data: any) => {
+    const tostId = toast.loading('Register..')
+
+    try {
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      }
+      await creteUser(userInfo)
+      toast.success('Successfuly Login', { id: tostId, duration: 2000 })
+      navigate('/login')
+
+    } catch (err) {
+      toast.error('Something wrong', { id: tostId, duration: 2000 })
     }
-    creteUser(userInfo)
-    navigate('/login')
   }
 
 

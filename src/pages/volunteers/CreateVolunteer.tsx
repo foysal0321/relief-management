@@ -2,13 +2,16 @@
 import { FieldValues, useForm } from "react-hook-form"
 import Input from "../../ui/Input"
 import { useAddVolunteerMutation } from "../../redux/feauters/volunteers/volunteerApi";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateVolunteer() {
 
-    const {register, handleSubmit} = useForm()
+    const {register, handleSubmit, reset} = useForm()
     const imgHostUrl = `https://api.imgbb.com/1/upload?key=70669c87852630ac66a79bbcc87d5718`;
     const [addVolunteer] = useAddVolunteerMutation(undefined)
+    const navigate = useNavigate()
 
 
     const submit = (data: FieldValues | any) => {
@@ -16,6 +19,7 @@ function CreateVolunteer() {
         const formData = new FormData()
         formData.append("image", data.image[0])
 
+        // host image
         fetch(imgHostUrl, {
             method: 'POST',
             body: formData
@@ -23,27 +27,43 @@ function CreateVolunteer() {
         .then((res) => res.json())
         .then((imgData) => {
             const imgUrl = imgData.data.url
-            const {name, address, phone, email} = data
+            const {name, phone, email} = data
             const volunteerData = {
                 name,
-                address,
                 phone,
                 email,
                 image: imgUrl
             };
+              //==== add volunteer data
             addVolunteer(volunteerData)
-            //console.log(reviewData);         
+            .then((data: any) => {
+              if (data?.data?.acknowledged) {
+                  Swal.fire({
+                      icon: "success",
+                      title: "Your work has been saved",
+                      showConfirmButton: false,
+                      timer: 1500
+                  });
+                  navigate('/about')
+              } else {
+                  Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "Something went wrong!",
+                  });
+              }
+          });
+      reset()        
         })   
     }
 
 
   return (
     <div className="py-20 max-w-[500px] mx-auto ">
-      <h2 className="text-3xl py-6 font-bold">Create A Volunteer</h2>
+      <h2 className="text-3xl py-6 font-bold">Become a Volunteer</h2>
       
       <form onSubmit={handleSubmit(submit)} >
         <Input type='text' label='Name' register={register} name='name' />
-        <Input type='text' label='Address' register={register} name='address' />
         <Input type='email' label='Email' register={register} name='email' />
         <Input type='number' label='Phone' register={register} name='phone' />
        

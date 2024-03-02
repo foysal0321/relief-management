@@ -2,13 +2,15 @@
 import { useForm } from "react-hook-form"
 import { useLoaderData, useNavigate } from "react-router-dom"
 import { useUpdateReliefMutation } from "../../redux/feauters/reliefs/reliefApi"
+import Swal from "sweetalert2"
 
 function UpdateReliefForm() {
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
   const data: string | any = useLoaderData()
   const [updateData] = useUpdateReliefMutation()
   const navigate = useNavigate()
+
   const imgHostUrl = `https://api.imgbb.com/1/upload?key=70669c87852630ac66a79bbcc87d5718`
 
   const handle = (d: any) => {
@@ -36,7 +38,26 @@ function UpdateReliefForm() {
           data: newRelief
         }
         updateData(option)
-        navigate('/dashboard/supplies')
+        .then((data: any) => {
+          if (data?.data?.acknowledged) {
+              Swal.fire({
+                  icon: "success",
+                  title: "Your work has been update",
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+               navigate('/dashboard/supplies')
+          } else {
+              Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Something went wrong!",
+              });
+          }
+      });
+  reset()
+
+       
         // console.log(data._id);
       })
 

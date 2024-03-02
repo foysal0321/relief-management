@@ -16,12 +16,14 @@ import CreateReview from "../components/Dashboard/review/CreateReview";
 import CreateVolunteer from "../pages/volunteers/CreateVolunteer";
 import About from "../pages/about/About";
 import Community from "../pages/community/Community";
+import Notfound from "../ui/Notfound";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
+        errorElement: <Notfound />,
         children: ([
             {
                 path: '/',
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
             {
                 path: '/relief-goods/:id',
                 element: <ReliefDetails />,
-                loader: ({params}) => fetch(`https://relief-server.vercel.app/api/v1/relief-goods/${params.id}`)
+                loader: ({params}) => fetch(`https://relief-management-server.vercel.app/api/v1/relief-goods/${params.id}`)
                 
             },
             
@@ -43,7 +45,7 @@ const router = createBrowserRouter([
                 element: <Leaderboard />
             },
             {
-                path: '/volunteer”',
+                path: '/volunteer',
                 element: <CreateVolunteer />
             },
             {
@@ -83,7 +85,7 @@ const router = createBrowserRouter([
             {
                 path: 'update-supply/:id',
                 element: <UpdateReliefForm />,
-                loader: ({params}) => fetch(`https://relief-server.vercel.app/api/v1/relief-goods/${params.id}`)
+                loader: ({params}) => fetch(`https://relief-management-server.vercel.app/api/v1/relief-goods/${params.id}`)
                 
             },
             {

@@ -45,7 +45,7 @@ function Leaderboard() {
                             </div>
                         </td>
                         <td>
-                            <p>25</p>
+                            <p>{d.amount}</p>
                         </td>
                         <td>
                             <div className="rating">

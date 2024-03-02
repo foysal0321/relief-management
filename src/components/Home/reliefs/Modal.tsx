@@ -16,7 +16,7 @@ function Modal() {
     const submitData = (data: any) => {
         //console.log(data.email);
         addDonors(data)
-        //navigate('/dashboard')
+        navigate('/donors-leaderboard')
 
     }
 
